@@ -5,44 +5,16 @@ import { IMAGE_BASE_URL } from '../config/config';
 import Link from 'next/link';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import Carousel from '../carousel/page';
-import Navigation from '../navigation/navbar';
 import Footer from '../navigation/footer';
-export interface MovieProps{
-  id: number;
-  title: string;
-  genre_ids:number[]
-  poster_path:string
-  backdrop_path:string
-  overview:string
-}
-export interface Genre {
-  id: number;
-  name: string;
-}
+import UseMovieList from '../hooks/useMovieList';
+import UseGenres from '../hooks/useGenres';
+
 
 export default function MovieList() {
-const [movies, setMovies] = useState<MovieProps[]>([]);
-const [genres, setGenres] = useState<Genre[]>([]);
 const [currentIndex, setCurrentIndex] = useState(0);
 const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
-
-
-useEffect(() => {
-  (async () => {
-    const genre = await getGenres();
-    setGenres(genre)
-    console.log('this is genres response',genre);
-  })();
-},[]);
-
-
-
-useEffect(() => {
-  (async() => {
-    const movies = await getMovies();
-    setMovies(movies);
-  })();
-}, []);
+const movies = UseMovieList()
+const genres = UseGenres();
 
 const handleGenreClick = (genreId: number) => {
   setSelectedGenre(genreId);
@@ -69,7 +41,6 @@ const filteredMovies = selectedGenre
 return (
   <main>
     <div className='bg-slate-900' >
-      <Navigation/>
     <Carousel movies={movies} />
 
 
@@ -90,7 +61,7 @@ return (
               </div>
             ))
           ) : (
-            <p>Loading genres...</p>
+            <p className='text-white'>Loading genres...</p>
           )}
           <div className="flex-shrink-0 mt-3">
             {currentIndex > 0 && (
@@ -112,7 +83,7 @@ return (
               </Link>
             ))
           ) : (
-            <p>No movies found for this genre.</p>
+            <p className='text-white'>No movies found for this genre.</p>
           )}
         </div>
 <Footer/>
