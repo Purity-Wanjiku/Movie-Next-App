@@ -3,6 +3,8 @@ import { IMAGE_BASE_URL } from "@/app/config/config";
 import { AiFillStar } from 'react-icons/ai';
 import UseMovieDetails from "@/app/hooks/useMovieDetails";
 import Navigation from "@/app/navigation/navbar";
+
+
 const MovieDetail = ({ params: { movieId } }: { params: { movieId: number } }) => {
   const movieDetail = UseMovieDetails(movieId)
 
@@ -12,7 +14,7 @@ const MovieDetail = ({ params: { movieId } }: { params: { movieId: number } }) =
       {movieDetail && (
         <div >
           <div key={movieDetail.id} className="flex bg-slate-900">
-            <img src={`${IMAGE_BASE_URL}${movieDetail.poster_path}`} alt={movieDetail.title} className=" w-[18cm] h-[15.23cm] my-6 ml-[3.2cm] rounded-md border border-slate-500" />
+            <img src={`${IMAGE_BASE_URL}${movieDetail.poster_path}`} alt={movieDetail.title} className=" w-[16.5cm] h-[15.23cm] my-6 ml-[3.2cm] rounded-md border border-slate-500" />
 
             <div className="ml-16 mt-5">
               <p className="mb-12 text-white text-3xl font-bold mt-8">{movieDetail.title}</p>
